@@ -12,5 +12,11 @@ pub enum ErrorsCode {
     ProductRemoved,
 
     #[msg("Cannot get bump")]
-    CannotGetBump
+    CannotGetBump,
+
+    #[msg("Not in valid time frame")]
+    ProductNotInValidTimeWindow,
+
+    #[msg("Recycler not valid")]
+    InvalidRecycler
 }

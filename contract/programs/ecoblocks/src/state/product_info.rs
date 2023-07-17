@@ -56,6 +56,10 @@ impl ProductInfo{
         if self.status == ProductStatus::Removed {
             return Err(ErrorsCode::ProductRemoved.into());
         }
+        let current_time = Clock::get()?.unix_timestamp;
+        if current_time < self.start_date || current_time > self.end_date {
+            return Err(ErrorsCode::ProductNotInValidTimeWindow.into());
+        }
         self.status = ProductStatus::Claimed;
         self.owner = Some(user_key);
         Ok(())
@@ -67,6 +71,13 @@ impl ProductInfo{
         }
         if self.status == ProductStatus::Removed {
             return Err(ErrorsCode::ProductRemoved.into());
+        }
+        let current_time = Clock::get()?.unix_timestamp;
+        if current_time < self.start_date || current_time > self.end_date {
+            return Err(ErrorsCode::ProductNotInValidTimeWindow.into());
+        }
+        if !self.valid_recyclers.contains(&recycler) {
+            return Err(ErrorsCode::InvalidRecycler.into());
         }
         self.status = ProductStatus::Recycled;
         self.recycler = Some(recycler);
