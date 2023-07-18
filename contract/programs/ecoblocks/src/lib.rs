@@ -7,7 +7,7 @@ pub mod state;
 declare_id!("Dvufj2n9dYtimtH8su9ZNHoJ33Yd9a49KAtn5PoJGh2c");
 
 #[program]
-pub mod staking {
+pub mod ecoblocks {
     use super::*;
 
     pub fn create_product(ctx: Context<CreateProduct>, id: u64, valid_recyclers: [Pubkey; 3], start_date: i64, end_date: i64, details: String) -> Result<()> {
